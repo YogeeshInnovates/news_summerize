@@ -1,1 +1,1 @@
-web: gunicorn news_summarization.wsgi --log-file -
+web: python manage.py runserver 0.0.0.0:$PORT
