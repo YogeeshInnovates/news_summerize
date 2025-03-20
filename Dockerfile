@@ -10,13 +10,11 @@ COPY requirements.txt .
 # Install the dependencies in a virtual environment
 RUN python -m venv /opt/venv && \
     . /opt/venv/bin/activate && \
+    pip install --no-cache-dir --upgrade pip setuptools wheel && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copy the application files into the container
 COPY . .
-
-# Set environment variables, like database credentials or other config
-# ENV VAR_NAME=value
 
 # Expose the port the app will run on (defaults to 8000 for Django)
 EXPOSE 8000
