@@ -1,0 +1,279 @@
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>News about {{ company }}</title>
+</head>
+<body>
+    <h1>News for {{ company }}</h1>
+    <ul>
+        {% for article in articles %}
+        <li>
+            <strong>{{ article.title }}</strong><br>
+            {{ article.summary }}<br>
+            <a href="{{ article.link }}" target="_blank">Read more</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html> {% endcomment %}
+
+{% comment %} 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News about {{ company }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        {% comment %} h1 {
+            color: #333;
+        }
+        .news-container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .news-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        a {
+            color: blue;
+            text-decoration: none;
+        } 
+        .news-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .news-item h3 {
+            color: #222;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .news-item p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            text-align: justify;
+            font-weight: 500;
+        }
+        
+        a {
+            color: #007BFF;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="news-container">
+        <h1>News for {{ company }}</h1>
+        <form method="GET" action="">
+            <input type="text" name="company" placeholder="Enter company name" required>
+            <button type="submit">Search</button>
+        </form>
+        
+        {% for article in articles %}
+        <div class="news-item">
+            <h3>{{ article.title }}</h3>
+            <p>{{ article.summary }}</p>
+            <a href="{{ article.link }}" target="_blank">Read more</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html> {% endcomment %}
+
+
+{% comment %} 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News about {{ company }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .news-container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .news-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .news-item h3 {
+            color: #222;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .news-item p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            text-align: justify;
+            font-weight: 500;
+        }
+
+        .tts-icon {
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+            color: #007BFF;
+            margin-left: 10px;
+        }
+
+        a {
+            color: #007BFF;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="news-container">
+        <h1>News for {{ company }}</h1>
+        <form method="GET" action="">
+            <input type="text" name="company" placeholder="Enter company name" required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% for article in articles %}
+        <div class="news-item">
+            <h3>{{ article.title }}</h3>
+            <span class="tts-icon" onclick="speakText(this)">🔊</span>
+            <p>{{ article.summary }}</p>
+            <a href="{{ article.link }}" target="_blank">Read more</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function speakText(icon) {
+            let text = icon.nextElementSibling.innerText;
+            let speech = new SpeechSynthesisUtterance();
+            speech.text = text;
+            speech.lang = "en-US";
+            speech.rate = 1;
+            speech.pitch = 1;
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+</body>
+</html> {% endcomment %}
+
+
+{% comment %} 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live News with Hindi TTS</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; padding: 20px; }
+        .news-container { max-width: 800px; margin: auto; }
+        .news-item { padding: 15px; border-bottom: 1px solid #ddd; margin-bottom: 10px; background: #f9f9f9; border-radius: 8px; }
+        .tts-icon { float: right; font-size: 20px; cursor: pointer; color: #007BFF; margin-left: 10px; }
+        .translated-text { font-weight: bold; color: green; }
+    </style>
+    <script>
+        function fetchTTS(text, button) {
+            fetch(`/translate_tts/?text=${encodeURIComponent(text)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.translated_text) {
+                        button.nextElementSibling.innerText = data.translated_text;  // Show Hindi translation
+                    }
+                    if (data.audio_url) {
+                        let audio = new Audio(data.audio_url);
+                        audio.play();
+                    }
+                })
+                .catch(error => console.error("Error generating TTS:", error));
+        }
+    </script>
+</head>
+<body>
+    <div class="news-container">
+        <h1>Live News in Hindi with Speech</h1>
+        <form method="GET" action="">
+            <input type="text" name="company" placeholder="Enter company name" required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% for article in articles %}
+        <div class="news-item">
+            <h3>{{ article.title }}</h3>
+            <span class="tts-icon" onclick="fetchTTS('{{ article.summary }}', this)">🔊</span>
+            <p>{{ article.summary }}</p>
+            <p class="translated-text"></p>
+            <a href="{{ article.link }}" target="_blank">Read more</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Summary</title>
+</head>
+<body>
+    <h2>News for {{ company }}</h2>
+
+    {% for article in articles %}
+        <div style="border:1px solid #ddd; padding:10px; margin:10px 0;">
+            <h3>{{ article.title }}</h3>
+            <p><strong>Summary:</strong> {{ article.summary }}</p>
+            <p><strong>Translated:</strong> {{ article.translated_summary }}</p>
+            <p><a href="{{ article.link }}" target="_blank">Read more</a></p>
+            <button onclick="playAudio('{{ article.audio_url }}')">🔊 Play</button>
+
+        </div>
+    {% endfor %}
+
+    <script>
+        {% comment %} function playAudio(url) {
+            let audio = new Audio(url);
+            audio.play();
+        } {% endcomment %}
+
+            function playAudio(url) {
+                alert(url);
+                console.log("Playing audio from:", url); // Debugging
+                let audio = new Audio(url);
+                audio.load();  // Ensure it loads properly
+                audio.play().catch(error => console.error("Audio playback error:", error));
+            }
+        </script>
+        
+   
+</body>
+</html>
