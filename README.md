@@ -65,7 +65,7 @@ If you want to run Streamlit locally:
 ```
 ## 📡 Deployment
 - **Backend Deployed on Render:** [news-summerize-1.onrender.com](https://news-summerize-1.onrender.com/)
-- **Frontend Deployed on Hugging Face:** [news-summarization](-https://Yogeeshhegde778-news-summarization.hf.space/ )
+- **Frontend Deployed on Hugging Face:** [news-summarization](https://Yogeeshhegde778-news-summarization.hf.space/ )
 
 ## 📜 License
 This project is open-source and available under the **MIT License**.
