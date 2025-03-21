@@ -72,5 +72,5 @@ This project is open-source and available under the **MIT License**.
 
 ---
 
-⚡ **Developed by [Yogeesh Hegde](https://github.com/Yogeeshhegde778)** 🚀
+⚡ **Developed by [Yogeesh Hegde](https://github.com/YogeeshInnovates/news_summerize)** 🚀
 
